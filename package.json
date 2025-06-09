@@ -1,0 +1,24 @@
+{
+  "name": "yolo-social-media",
+  "version": "1.0.0",
+  "description": "A full-stack social media platform built with MERN stack",
+  "scripts": {
+    "client": "cd client && npm run dev",
+    "server": "cd server && npm run dev",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "install-all": "npm install && cd client && npm install && cd ../server && npm install"
+  },
+  "keywords": [
+    "mern",
+    "social-media",
+    "react",
+    "node",
+    "express",
+    "mongodb"
+  ],
+  "author": "Mohamed Gamal",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}
