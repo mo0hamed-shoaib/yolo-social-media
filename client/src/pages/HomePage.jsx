@@ -1370,7 +1370,7 @@ const HomePage = () => {
 
                 {/* Example Suggestion 2 */}
                 <div className="group relative overflow-hidden bg-gradient-to-br from-gray-700 to-gray-800 rounded-xl p-4 transition-all duration-300 hover:shadow-lg hover:shadow-[#F299A9]/20 hover:scale-[1.02] border border-gray-600/70 hover:border-[#F299A9]/70">
-                  <div className="absolute inset-0 bg-[#F299A9] opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
+                  <div className="absolute inset-0 bg-[rgb(242,153,169)] opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
                   <div className="relative z-10 flex items-center justify-between">
                     <div className="flex items-center">
                       <div className="relative cursor-pointer">
