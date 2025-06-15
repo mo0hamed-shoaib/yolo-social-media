@@ -20,5 +20,12 @@
   "license": "MIT",
   "devDependencies": {
     "concurrently": "^9.1.2"
+  },
+  "dependencies": {
+    "daisyui": "^5.0.43",
+    "multer": "^2.0.1",
+    "react-confetti": "^6.4.0",
+    "react-use": "^17.6.0",
+    "zxcvbn": "^4.4.2"
   }
 }
