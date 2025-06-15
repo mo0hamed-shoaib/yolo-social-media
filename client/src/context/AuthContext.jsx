@@ -24,7 +24,7 @@ export const AuthProvider = ({ children }) => {
         // For now, we'll simulate fetching user data based on the presence of a token
         // You might want to replace this with an actual API call to your backend
         // to get specific user details (e.g., username, email, roles).
-        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/auth/me`, {
+        const response = await axios.get('http://localhost:5000/api/auth/me', {
           headers: { Authorization: `Bearer ${token}` },
         });
         if (response.data.success) {
