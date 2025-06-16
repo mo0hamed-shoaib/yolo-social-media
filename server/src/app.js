@@ -27,7 +27,12 @@ app.use(express.urlencoded({ extended: true }));
 const uploadsPath = path.join(__dirname, '..', 'uploads');
 app.use('/uploads', express.static(uploadsPath));
 
-// Routes
+// Test route
+app.get('/', (req, res) => {
+    res.json({ message: 'API is working' });
+});
+
+// API routes
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/posts', postRoutes);
