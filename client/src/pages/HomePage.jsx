@@ -1717,13 +1717,13 @@ const HomePage = () => {
                         {console.log("Debug Delete Button:", {
                           postId: post._id,
                           postAuthorId: post.author?._id,
-                          currentUserId: user?._id,
-                          isAuthorMatch: post.author?._id === user?._id,
+                          currentUserId: user?.id,
+                          isAuthorMatch: post.author?._id === user?.id,
                           hasAuthor: !!post.author,
                           isLoggedIn: !!user,
                           fullUserObject: user,
                         })}
-                        {post.author?._id === user?._id && (
+                        {post.author?._id === user?.id && (
                           <button
                             onClick={() => {
                               setPostToDelete(post._id);
