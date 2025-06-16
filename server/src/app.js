@@ -16,36 +16,20 @@ const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Middleware
-const allowedOrigins = [
-    'https://yolo-social-media.vercel.app',
-    'http://localhost:5173'
-];
-
-const corsOptions = {
-    origin: function (origin, callback) {
-        if (!origin || allowedOrigins.includes(origin)) {
-            callback(null, true);
-        } else {
-            callback(new Error('Not allowed by CORS'));
-        }
-    },
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
+// CORS configuration
+app.use(cors({
+    origin: ['http://localhost:5173', 'https://yolo-social-media.vercel.app'],
     credentials: true,
-    optionsSuccessStatus: 200 // For legacy browsers
-};
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));
 
-// handle preflight requests
-app.options('*', cors(corsOptions));
-
-app.use(cors(corsOptions));
+// Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Serve static uploaded files
 const uploadsPath = path.join(__dirname, '..', 'uploads');
-console.log("Server - Serving static files from:", uploadsPath);
 app.use('/uploads', express.static(uploadsPath));
 
 // Routes
