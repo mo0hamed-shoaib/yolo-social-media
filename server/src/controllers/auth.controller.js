@@ -28,7 +28,7 @@ export const registerUser = async (req, res) => {
 // Login user
 export const loginUser = async (req, res) => {
     try {
-        console.log('Login attempt:', req.body); // Log the request body
+        console.log('Login attempt:', req.body);
         const { email, password } = req.body;
 
         if (!email || !password) {
@@ -40,7 +40,7 @@ export const loginUser = async (req, res) => {
         }
 
         const user = await User.findOne({ email });
-        console.log('User found:', !!user); // Log if user was found
+        console.log('User found:', !!user);
 
         if (!user) {
             return res.status(401).json({
@@ -50,7 +50,7 @@ export const loginUser = async (req, res) => {
         }
 
         const isMatch = await user.comparePassword(password);
-        console.log('Password match:', isMatch); // Log if password matched
+        console.log('Password match:', isMatch);
 
         if (!isMatch) {
             return res.status(401).json({
@@ -60,7 +60,7 @@ export const loginUser = async (req, res) => {
         }
 
         const token = generateToken(user._id);
-        console.log('Token generated successfully'); // Log token generation
+        console.log('Token generated successfully');
 
         res.status(200).json({
             success: true,
@@ -70,11 +70,14 @@ export const loginUser = async (req, res) => {
                 id: user._id,
                 name: user.name,
                 email: user.email,
-                profilePicture: user.profilePicture
+                username: user.username,
+                profilePicture: user.profilePicture,
+                bio: user.bio,
+                location: user.location
             }
         });
     } catch (error) {
-        console.error('Login error:', error); // Log any errors
+        console.error('Login error:', error);
         res.status(500).json({
             success: false,
             message: 'Login failed',

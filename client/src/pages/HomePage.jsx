@@ -562,7 +562,9 @@ const HomePage = () => {
               </div>
               <div className="text-center">
                 <h3 className="text-xl font-semibold text-white group-hover:text-[#D984BB] transition-colors duration-200">{user?.username || "John Doe"}</h3>
-                <p className="text-gray-400 text-sm mt-1">@{user?.username.toLowerCase().replace(/\s+/g, '_') || "johndoe"}</p>
+                <p className="text-gray-400 text-sm mt-1">
+                    @{user?.username ? user.username.toLowerCase().replace(/\s+/g, '_') : "johndoe"}
+                </p>
                 <div className="flex justify-center gap-6 mt-4 text-sm">
                   <div className="group cursor-pointer">
                     <p className="font-bold text-lg text-white group-hover:text-[#D984BB] transition-colors duration-200">123</p>
