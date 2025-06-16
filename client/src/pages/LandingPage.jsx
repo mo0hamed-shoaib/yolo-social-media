@@ -1,6 +1,6 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const LandingPage = () => {
   const navigate = useNavigate();
@@ -8,80 +8,207 @@ const LandingPage = () => {
   const features = [
     {
       title: "Connect with Friends",
-      description: "Join our vibrant community and connect with friends from all around the world.",
+      description:
+        "Join our vibrant community and connect with friends from all around the world.",
       icon: "👥",
-      color: "#F299A9" // Pink
+      color: "#F299A9", // Pink
     },
     {
       title: "Share Your Moments",
-      description: "Share your experiences, photos, and stories with your community.",
+      description:
+        "Share your experiences, photos, and stories with your community.",
       icon: "📸",
-      color: "#4CAF50" // Green
+      color: "#4CAF50", // Green
     },
     {
       title: "Real-time Updates",
-      description: "Stay connected with instant notifications and real-time updates.",
+      description:
+        "Stay connected with instant notifications and real-time updates.",
       icon: "⚡",
-      color: "#2196F3" // Blue
+      color: "#2196F3", // Blue
     },
     {
       title: "Create Events",
-      description: "Organize and join exciting events with your community members.",
+      description:
+        "Organize and join exciting events with your community members.",
       icon: "🎉",
-      color: "#9C27B0" // Purple
+      color: "#9C27B0", // Purple
     },
     {
       title: "Join Groups",
-      description: "Find and join groups that match your interests and passions.",
+      description:
+        "Find and join groups that match your interests and passions.",
       icon: "👥",
-      color: "#FF9800" // Orange
+      color: "#FF9800", // Orange
     },
     {
       title: "Live Chat",
       description: "Engage in real-time conversations with community members.",
       icon: "💬",
-      color: "#E91E63" // Deep Pink
-    }
+      color: "#E91E63", // Deep Pink
+    },
   ];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 text-white">
       {/* Hero Section */}
-      <div className="relative overflow-hidden flex flex-col items-center justify-center min-h-[50vh] pt-16 pb-0">
+      <div className="relative overflow-hidden flex flex-col items-center justify-center min-h-[60vh] pt-16 pb-0">
+        {/* Background Effects */}
+        <div className="absolute inset-0 bg-gradient-to-b from-gray-900/50 to-transparent z-0" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-[#ca74d6]/20 via-transparent to-transparent z-0" />
+
         <div className="container mx-auto px-4 flex flex-col items-center justify-center min-h-[70vh] text-center relative z-10 pb-20">
-          <motion.h1 
+          {/* Logo Section */}
+          <motion.div
+            initial={{ scale: 0, rotate: -180 }}
+            animate={{ scale: 1, rotate: 0 }}
+            transition={{
+              type: "spring",
+              stiffness: 260,
+              damping: 20,
+              duration: 1.5,
+            }}
+            className="mb-12"
+          >
+            <motion.img
+              src="/yolo-logo.svg"
+              alt="Yolo Logo"
+              className="w-40 h-40"
+              whileHover={{
+                scale: 1.1,
+                rotate: 5,
+                filter: "brightness(1.2)",
+              }}
+              transition={{ type: "spring", stiffness: 400, damping: 10 }}
+            />
+          </motion.div>
+
+          <motion.h1
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="text-4xl md:text-6xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-[#ca74d6] to-[#f59899]"
+            className="text-5xl md:text-7xl font-bold mb-6 relative"
           >
-            Welcome to Yolo
+            <span className="relative inline-block">
+              <span className="absolute inset-0 bg-gradient-to-r from-[#ca74d6] to-[#f59899] blur-xl opacity-50"></span>
+              <span className="relative bg-clip-text text-transparent bg-gradient-to-r from-[#ca74d6] to-[#f59899] drop-shadow-[0_1px_1px_rgba(0,0,0,0.4)]">
+                Welcome to Yolo
+              </span>
+            </span>
           </motion.h1>
-          
-          <motion.p 
+
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2, duration: 0.5 }}
-            className="text-lg md:text-xl text-[#ca74d6] font-bold text-shadow-xs/10 mb-14 max-w-2xl"
+            className="relative w-full max-w-4xl mx-auto my-10"
           >
-            Join our vibrant community and connect with like-minded individuals. Share your experiences, learn from others, and grow together.
-          </motion.p>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              whileHover={{
+                scale: 1.02,
+                boxShadow: "0 20px 40px rgba(0,0,0,0.2)",
+              }}
+              transition={{
+                type: "spring",
+                stiffness: 300,
+                damping: 20,
+              }}
+              className="relative p-10 rounded-2xl backdrop-blur-md bg-gradient-to-br from-[#1a1a2e]/80 to-[#16213e]/80 border border-white/10 shadow-2xl overflow-hidden"
+            >
+              {/* Animated gradient background */}
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-[#ca74d6]/10 to-[#f59899]/10"
+                animate={{
+                  backgroundPosition: ["0% 0%", "100% 100%"],
+                }}
+                transition={{
+                  duration: 10,
+                  repeat: Infinity,
+                  repeatType: "reverse",
+                  ease: "linear",
+                }}
+                style={{
+                  backgroundSize: "200% 200%",
+                }}
+              />
+
+              {/* Shimmer effect */}
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent"
+                animate={{
+                  x: ["-100%", "100%"],
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "linear",
+                }}
+              />
+
+              {/* Card content with enhanced typography */}
+              <div className="relative">
+                <p className="text-xl md:text-2xl font-bold leading-relaxed text-white/90">
+                  <span className="bg-gradient-to-r from-[#ca74d6] to-[#f59899] bg-clip-text text-transparent">
+                    Join our vibrant community
+                  </span>{" "}
+                  and connect with like-minded individuals.{" "}
+                  <span className="bg-gradient-to-r from-[#f59899] to-[#ca74d6] bg-clip-text text-transparent">
+                    Share your experiences
+                  </span>
+                  , learn from others, and grow together.
+                </p>
+              </div>
+
+              {/* Decorative elements */}
+              <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-[#ca74d6]/10 to-transparent rounded-full blur-3xl" />
+              <div className="absolute bottom-0 left-0 w-40 h-40 bg-gradient-to-tr from-[#f59899]/10 to-transparent rounded-full blur-3xl" />
+            </motion.div>
+          </motion.div>
 
           <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.4, duration: 0.5 }}
-                  className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start"
-                >
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={() => navigate('/home')}
-                    className="bg-gradient-to-r from-[#bb6cbf] to-[#de8a8d] text-white font-bold py-3 px-7 rounded-full text-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-pink-500/20 cursor-pointer"
-                  >
-                    Join the Community
-                  </motion.button>
-                </motion.div>
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4, duration: 0.5 }}
+            className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start"
+          >
+            <motion.button
+              whileHover={{
+                scale: 1.05,
+                boxShadow: "0 0 30px rgba(202, 116, 214, 0.3)",
+              }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => navigate("/home")}
+              className="relative overflow-hidden backdrop-blur-md bg-gradient-to-br from-[#1a1a2e]/80 to-[#16213e]/80 border border-white/10 text-white font-bold py-4 px-8 rounded-full text-lg transition-all duration-300 shadow-lg hover:shadow-xl cursor-pointer group"
+            >
+              {/* Button background effects */}
+              <div className="absolute inset-0 bg-gradient-to-r from-[#ca74d6]/10 to-[#f59899]/10" />
+              <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent" />
+
+              {/* Shimmer effect */}
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent"
+                animate={{
+                  x: ["-100%", "100%"],
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "linear",
+                }}
+              />
+
+              {/* Button text */}
+              <span className="relative bg-gradient-to-r from-[#ca74d6] to-[#f59899] bg-clip-text text-transparent font-bold">
+                Join the Community
+              </span>
+
+              {/* Decorative elements */}
+              <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-[#ca74d6]/10 to-transparent rounded-full blur-xl" />
+              <div className="absolute bottom-0 left-0 w-20 h-20 bg-gradient-to-tr from-[#f59899]/10 to-transparent rounded-full blur-xl" />
+            </motion.button>
+          </motion.div>
         </div>
 
         {/* Stars SVG */}
@@ -91,9 +218,9 @@ const LandingPage = () => {
           transition={{ delay: 0.6, duration: 0.8 }}
           className="absolute top-0 left-0 w-full pointer-events-none z-0"
         >
-          <img 
-            src="https://cdn.prod.website-files.com/5ffc199ed786423eb2569667/65eae990d904d2547ae7714f_hero%20stars.svg" 
-            alt="Decorative stars" 
+          <img
+            src="https://cdn.prod.website-files.com/5ffc199ed786423eb2569667/65eae990d904d2547ae7714f_hero%20stars.svg"
+            alt="Decorative stars"
             className="w-full h-auto"
           />
         </motion.div>
@@ -105,9 +232,9 @@ const LandingPage = () => {
           transition={{ delay: 0.6, duration: 0.8 }}
           className="absolute -bottom-10 left-0 w-full pointer-events-none z-0"
         >
-          <img 
-            src="https://cdn.prod.website-files.com/5ffc199ed786423eb2569667/65eae990608962debd5bd167_hero%20clouds%20svg.svg" 
-            alt="Decorative clouds" 
+          <img
+            src="https://cdn.prod.website-files.com/5ffc199ed786423eb2569667/65eae990608962debd5bd167_hero%20clouds%20svg.svg"
+            alt="Decorative clouds"
             className="w-full h-auto"
           />
         </motion.div>
@@ -124,7 +251,7 @@ const LandingPage = () => {
             </div>
 
             <div className="relative z-10">
-              <motion.h2 
+              <motion.h2
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 transition={{ duration: 0.5 }}
@@ -132,39 +259,39 @@ const LandingPage = () => {
               >
                 Why Choose Yolo?
               </motion.h2>
-              
+
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 {features.map((feature, index) => (
                   <motion.div
                     key={index}
                     initial={{ opacity: 0, y: 10 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ 
+                    transition={{
                       duration: 0.4,
-                      ease: "easeOut"
+                      ease: "easeOut",
                     }}
-                    whileHover={{ 
+                    whileHover={{
                       scale: 1.02,
-                      transition: { duration: 0.2 }
+                      transition: { duration: 0.2 },
                     }}
                     className="group relative overflow-hidden bg-gray-800/50 backdrop-blur-sm rounded-xl p-8 transition-all duration-300 hover:shadow-lg cursor-pointer border border-gray-700/50 hover:border-opacity-70"
                     style={{
-                      '--hover-color': feature.color,
-                      '--hover-border-color': feature.color,
+                      "--hover-color": feature.color,
+                      "--hover-border-color": feature.color,
                     }}
                   >
-                    <div 
+                    <div
                       className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-300"
                       style={{ backgroundColor: feature.color }}
                     ></div>
                     <div className="relative z-10 flex flex-col items-center text-center">
-                      <h3 
+                      <h3
                         className="text-2xl font-bold mb-6 text-gray-100 group-hover:text-opacity-100 transition-colors duration-300"
-                        style={{ '--hover-text-color': feature.color }}
+                        style={{ "--hover-text-color": feature.color }}
                       >
                         {feature.title}
                       </h3>
-                      <div 
+                      <div
                         className="w-20 h-20 rounded-full flex items-center justify-center mb-6 transform transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3"
                         style={{ backgroundColor: feature.color }}
                       >
@@ -193,7 +320,7 @@ const LandingPage = () => {
             </div>
 
             <div className="relative z-10">
-              <motion.h2 
+              <motion.h2
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 transition={{ duration: 0.5 }}
@@ -201,84 +328,88 @@ const LandingPage = () => {
               >
                 Frequently Asked Questions
               </motion.h2>
-              
+
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {[
                   {
                     question: "How do I get started with Yolo?",
-                    answer: "Simply sign up for an account, complete your profile, and start connecting with friends and communities that share your interests.",
+                    answer:
+                      "Simply sign up for an account, complete your profile, and start connecting with friends and communities that share your interests.",
                     icon: "🚀",
-                    color: "#4CAF50" // Green
+                    color: "#4CAF50", // Green
                   },
                   {
                     question: "Is Yolo free to use?",
-                    answer: "Yes! Yolo is completely free to use. We believe in providing a great social experience without any hidden costs.",
+                    answer:
+                      "Yes! Yolo is completely free to use. We believe in providing a great social experience without any hidden costs.",
                     icon: "💰",
-                    color: "#FF9800" // Orange
+                    color: "#FF9800", // Orange
                   },
                   {
                     question: "How do I protect my privacy?",
-                    answer: "We take privacy seriously. You can control who sees your content, manage your connections, and adjust your privacy settings at any time.",
+                    answer:
+                      "We take privacy seriously. You can control who sees your content, manage your connections, and adjust your privacy settings at any time.",
                     icon: "🔒",
-                    color: "#2196F3" // Blue
+                    color: "#2196F3", // Blue
                   },
                   {
                     question: "Can I create my own community?",
-                    answer: "Absolutely! You can create and manage your own community, invite members, and organize events to bring people together.",
+                    answer:
+                      "Absolutely! You can create and manage your own community, invite members, and organize events to bring people together.",
                     icon: "👥",
-                    color: "#9C27B0" // Purple
+                    color: "#9C27B0", // Purple
                   },
                   {
                     question: "How do I report inappropriate content?",
-                    answer: "You can report any content that violates our community guidelines using the report button. Our team reviews all reports promptly.",
+                    answer:
+                      "You can report any content that violates our community guidelines using the report button. Our team reviews all reports promptly.",
                     icon: "🚫",
-                    color: "#F44336" // Red
+                    color: "#F44336", // Red
                   },
                   {
                     question: "What kind of content can I share?",
-                    answer: "You can share photos, videos, stories, and updates. Just make sure to follow our community guidelines and respect others.",
+                    answer:
+                      "You can share photos, videos, stories, and updates. Just make sure to follow our community guidelines and respect others.",
                     icon: "📸",
-                    color: "#E91E63" // Deep Pink
-                  }
+                    color: "#E91E63", // Deep Pink
+                  },
                 ].map((faq, index) => (
                   <motion.div
                     key={index}
                     initial={{ opacity: 0, y: 10 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ 
+                    transition={{
                       duration: 0.4,
-                      ease: "easeOut"
+                      ease: "easeOut",
                     }}
-                    whileHover={{ 
+                    whileHover={{
                       scale: 1.02,
-                      transition: { duration: 0.2 }
+                      transition: { duration: 0.2 },
                     }}
                     className="group relative overflow-hidden bg-gray-800/50 backdrop-blur-sm rounded-xl p-8 transition-all duration-300 hover:shadow-lg cursor-pointer border border-gray-700/50 hover:border-opacity-70"
                     style={{
-                      '--hover-color': faq.color,
-                      '--hover-border-color': faq.color,
+                      "--hover-color": faq.color,
+                      "--hover-border-color": faq.color,
                     }}
                   >
-                    <div 
+                    <div
                       className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-300"
                       style={{ backgroundColor: faq.color }}
                     ></div>
                     <div className="relative z-10 flex flex-col items-start text-left">
-                      <div 
+                      <div
                         className="w-16 h-16 rounded-full flex items-center justify-center mb-6 transform transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3"
                         style={{ backgroundColor: faq.color }}
                       >
                         <span className="text-3xl">{faq.icon}</span>
                       </div>
-                      <h3 
+                      <h3
                         className="text-xl font-bold mb-4 text-gray-100 group-hover:text-opacity-100 transition-colors duration-300"
-                        style={{ '--hover-text-color': faq.color }}
+                        style={{ "--hover-text-color": faq.color }}
                       >
                         {faq.question}
                       </h3>
-                      <p className="text-gray-300 text-sm">
-                        {faq.answer}
-                      </p>
+                      <p className="text-gray-300 text-sm">{faq.answer}</p>
                     </div>
                   </motion.div>
                 ))}
@@ -301,7 +432,7 @@ const LandingPage = () => {
             <div className="relative z-10 grid md:grid-cols-2 gap-12 items-center">
               {/* Left Content */}
               <div className="text-center md:text-left">
-                <motion.h2 
+                <motion.h2
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5 }}
@@ -309,13 +440,15 @@ const LandingPage = () => {
                 >
                   Ready to Start Your Journey?
                 </motion.h2>
-                <motion.p 
+                <motion.p
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2, duration: 0.5 }}
                   className="text-xl mb-8 text-gray-300"
                 >
-                  Join thousands of users who are already part of our vibrant community. Share your stories, connect with friends, and discover new opportunities.
+                  Join thousands of users who are already part of our vibrant
+                  community. Share your stories, connect with friends, and
+                  discover new opportunities.
                 </motion.p>
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
@@ -326,7 +459,7 @@ const LandingPage = () => {
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    onClick={() => navigate('/home')}
+                    onClick={() => navigate("/home")}
                     className="bg-gradient-to-r from-[#bb6cbf] to-[#de8a8d] text-white font-bold py-3 px-7 rounded-full text-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-pink-500/20 cursor-pointer"
                   >
                     Get Started Now
@@ -334,7 +467,7 @@ const LandingPage = () => {
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    onClick={() => navigate('/home')}
+                    onClick={() => navigate("/home")}
                     className="bg-gray-700 hover:bg-gray-600 text-white font-bold py-3 px-7 rounded-full text-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-gray-500/20 cursor-pointer"
                   >
                     Learn More
@@ -343,7 +476,7 @@ const LandingPage = () => {
               </div>
 
               {/* Right Content - Stats */}
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, x: 20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.6, duration: 0.5 }}
@@ -353,7 +486,7 @@ const LandingPage = () => {
                   { number: "10K+", label: "Active Users", color: "#F299A9" }, // Pink
                   { number: "5K+", label: "Communities", color: "#4CAF50" }, // Green
                   { number: "50K+", label: "Posts Shared", color: "#2196F3" }, // Blue
-                  { number: "24/7", label: "Support", color: "#9C27B0" } // Purple
+                  { number: "24/7", label: "Support", color: "#9C27B0" }, // Purple
                 ].map((stat, index) => (
                   <motion.div
                     key={index}
@@ -362,15 +495,13 @@ const LandingPage = () => {
                     transition={{ delay: 0.8 + index * 0.1 }}
                     className="group relative overflow-hidden bg-gray-800/50 backdrop-blur-sm rounded-xl p-6 transition-all duration-300 hover:shadow-lg hover:scale-[1.02] cursor-pointer border border-gray-700/50 hover:border-opacity-70"
                   >
-                    <div 
+                    <div
                       className="text-3xl font-bold mb-2"
                       style={{ color: stat.color }}
                     >
                       {stat.number}
                     </div>
-                    <div className="text-sm text-gray-400">
-                      {stat.label}
-                    </div>
+                    <div className="text-sm text-gray-400">{stat.label}</div>
                   </motion.div>
                 ))}
               </motion.div>
@@ -424,7 +555,10 @@ const LandingPage = () => {
             height="24"
             className="mr-2"
           />
-          <p>Copyright © {new Date().getFullYear()} - All rights reserved by Yolo Community</p>
+          <p>
+            Copyright © {new Date().getFullYear()} - All rights reserved by Yolo
+            Community
+          </p>
         </aside>
         <nav className="md:place-self-center md:justify-self-end">
           <div className="grid grid-flow-col gap-4">
@@ -468,4 +602,4 @@ const LandingPage = () => {
   );
 };
 
-export default LandingPage; 
+export default LandingPage;
