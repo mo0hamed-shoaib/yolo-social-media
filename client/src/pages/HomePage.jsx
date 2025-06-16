@@ -1721,6 +1721,7 @@ const HomePage = () => {
                           isAuthorMatch: post.author?._id === user?._id,
                           hasAuthor: !!post.author,
                           isLoggedIn: !!user,
+                          fullUserObject: user,
                         })}
                         {post.author?._id === user?._id && (
                           <button
