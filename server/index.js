@@ -37,3 +37,6 @@ process.on('unhandledRejection', (err) => {
     // Close server & exit process
     process.exit(1);
 });
+
+// Export the Express app for Vercel
+export default app;
