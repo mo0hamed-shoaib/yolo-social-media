@@ -21,14 +21,14 @@ mongoose
     .connect(MONGO_URI, options)
     .then(() => {
         console.log('Connected to MongoDB');
-        // Start server
+        // Start server only after successful database connection
         app.listen(PORT, () => {
             console.log(`Server is running on port ${PORT}`);
         });
     })
     .catch((error) => {
-        console.error('Error connecting to MongoDB:', error.message);
-        process.exit(1);
+        console.error('MongoDB connection error:', error);
+        process.exit(1); // Exit if cannot connect to database
     });
 
 // Handle unhandled promise rejections

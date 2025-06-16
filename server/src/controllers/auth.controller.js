@@ -28,15 +28,57 @@ export const registerUser = async (req, res) => {
 // Login user
 export const loginUser = async (req, res) => {
     try {
-        const result = await authService.login(req.body, req);
-        res.json({
+        console.log('Login attempt:', req.body); // Log the request body
+        const { email, password } = req.body;
+
+        if (!email || !password) {
+            console.log('Missing credentials:', { email: !!email, password: !!password });
+            return res.status(400).json({
+                success: false,
+                message: 'Please provide both email and password'
+            });
+        }
+
+        const user = await User.findOne({ email });
+        console.log('User found:', !!user); // Log if user was found
+
+        if (!user) {
+            return res.status(401).json({
+                success: false,
+                message: 'Invalid credentials'
+            });
+        }
+
+        const isMatch = await user.comparePassword(password);
+        console.log('Password match:', isMatch); // Log if password matched
+
+        if (!isMatch) {
+            return res.status(401).json({
+                success: false,
+                message: 'Invalid credentials'
+            });
+        }
+
+        const token = generateToken(user._id);
+        console.log('Token generated successfully'); // Log token generation
+
+        res.status(200).json({
             success: true,
-            ...result
+            message: 'Login successful',
+            token,
+            user: {
+                id: user._id,
+                name: user.name,
+                email: user.email,
+                profilePicture: user.profilePicture
+            }
         });
     } catch (error) {
-        res.status(401).json({
+        console.error('Login error:', error); // Log any errors
+        res.status(500).json({
             success: false,
-            message: error.message
+            message: 'Login failed',
+            error: process.env.NODE_ENV === 'development' ? error.message : undefined
         });
     }
 };
