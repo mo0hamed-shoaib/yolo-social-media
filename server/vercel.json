@@ -9,7 +9,7 @@
     "routes": [
       {
         "src": "/api/auth/(.*)",
-        "dest": "/server/index.js",
+        "dest": "server/index.js",
         "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
         "headers": {
           "Access-Control-Allow-Origin": "https://yolo-social-media.vercel.app",
@@ -20,7 +20,7 @@
       },
       {
         "src": "/api/users/(.*)",
-        "dest": "/server/index.js",
+        "dest": "server/index.js",
         "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
         "headers": {
           "Access-Control-Allow-Origin": "https://yolo-social-media.vercel.app",
@@ -31,7 +31,7 @@
       },
       {
         "src": "/api/posts/(.*)",
-        "dest": "/server/index.js",
+        "dest": "server/index.js",
         "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
         "headers": {
           "Access-Control-Allow-Origin": "https://yolo-social-media.vercel.app",
@@ -41,4 +41,5 @@
         }
       }
     ]
-}
+  }
+  
