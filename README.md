@@ -14,6 +14,13 @@
     </tr>
   </table>
 
+  <!-- Live Demo Badge -->
+  <div style="margin: 30px 0;">
+    <a href="https://yolo-social-media.vercel.app/" target="_blank">
+      <img src="https://img.shields.io/badge/🚀_LIVE_DEMO-Click_Here-FF6B6B?style=for-the-badge&labelColor=4ECDC4&color=FF6B6B" alt="Live Demo" style="height: 40px;" />
+    </a>
+  </div>
+
   <div style="margin: 30px 0;">
     <a href="https://opensource.org/licenses/MIT">
       <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT" />
@@ -26,6 +33,9 @@
     </a>
     <a href="https://www.mongodb.com/">
       <img src="https://img.shields.io/badge/MongoDB-8.0-green" alt="MongoDB" />
+    </a>
+    <a href="https://vercel.com/">
+      <img src="https://img.shields.io/badge/Deployed%20on-Vercel-black" alt="Deployed on Vercel" />
     </a>
   </div>
 
@@ -42,11 +52,20 @@
 
 ---
 
+## 🌐 Live Demo
+
+**🚀 Experience Yolo Live:** [https://yolo-social-media.vercel.app/](https://yolo-social-media.vercel.app/)
+
+The application is fully deployed and ready to use! Create an account and start connecting with others.
+
+---
+
 ## 📖 Table of Contents
 
 - [📝 Project Overview](#-project-overview)
 - [✨ Features](#-features)
 - [🛠️ Tech Stack](#️-tech-stack)
+- [🌐 Deployment](#-deployment)
 - [📁 Project Structure](#-project-structure)
 - [🚀 Getting Started](#-getting-started)
 - [📚 API Endpoints](#-api-endpoints)
@@ -67,23 +86,26 @@ Yolo is a cutting-edge social media platform that brings people together through
 
 | 🔐 **Authentication** |  👤 **User Profiles**  |     📝 **Posts**      | 💬 **Interactions** |
 | :-------------------: | :--------------------: | :-------------------: | :-----------------: |
-|  Secure signup/login  | Customizable profiles  | Rich content creation |  Likes & comments   |
-|    JWT-based auth     | Follow/unfollow system |    CRUD operations    | Real-time updates\* |
+|  Secure signup/login  | Customizable profiles\*  | Rich content creation |  Likes\* & comments   |
+|    JWT-based auth     | Follow/unfollow system\* |    CRUD operations    | Real-time updates |
 
 _\*Planned features_
 
 ### Current Features
 
 - ✅ **User Authentication** - Secure signup, login, and logout functionality
-- ✅ **User Profiles** - View and edit user profiles with follow/unfollow capabilities
 - ✅ **Post Management** - Create, read, update, and delete posts with rich content
-- ✅ **Social Interactions** - Like posts and engage with comments
+- ✅ **Social Interactions** - Engage with comments
+- ✅ **Image Upload** - Share images with cloud storage via ImgBB
 - ✅ **Responsive Design** - Mobile-first approach with Tailwind CSS
+- ✅ **Cloud Deployment** - Fully deployed on Vercel for global accessibility
 
 ### Upcoming Features
 
 - 🔔 **Real-time Notifications** - Stay updated with instant alerts
-- 📸 **Media Uploads** - Share images and videos seamlessly
+- 👤 **User Profiles** - View and edit user profiles with follow/unfollow capabilities
+- 👍🏻 **Social Interactions** - Like and follow others
+- 🎥 **Video Uploads** - Share videos seamlessly
 - 🔍 **Advanced Search** - Find users and content effortlessly
 - 💬 **Direct Messaging** - Private conversations between users
 
@@ -99,17 +121,42 @@ _\*Planned features_
 
 <img src="https://skillicons.dev/icons?i=nodejs,express,mongodb,jwt" alt="Backend Tech Stack" />
 
+### Cloud & Deployment
+
+<img src="https://skillicons.dev/icons?i=vercel" alt="Deployment" />
+
 ### Tools & Utilities
 
 <img src="https://skillicons.dev/icons?i=git,github,vscode,npm,postman" alt="Tools" />
 
-|    **Category**    | **Technologies**                                      |
-| :----------------: | :---------------------------------------------------- |
-|    **Frontend**    | React 19, Vite, Tailwind CSS, Axios, React Router DOM |
-|    **Backend**     | Node.js, Express.js, Mongoose ODM                     |
-|    **Database**    | MongoDB                                               |
-| **Authentication** | JSON Web Tokens (JWT), bcryptjs                       |
-|  **Development**   | Nodemon, CORS, dotenv                                 |
+|      **Category**      | **Technologies**                                      |
+| :--------------------: | :---------------------------------------------------- |
+|      **Frontend**      | React 19, Vite, Tailwind CSS, Axios, React Router DOM |
+|      **Backend**       | Node.js, Express.js, Mongoose ODM                     |
+|      **Database**      | MongoDB Atlas                                         |
+|   **Authentication**   | JSON Web Tokens (JWT), bcryptjs                       |
+|   **Cloud Storage**    | ImgBB API (Image hosting)                             |
+|     **Deployment**     | Vercel (Frontend & Backend)                           |
+|    **Development**     | Nodemon, CORS, dotenv                                 |
+
+---
+
+## 🌐 Deployment
+
+The Yolo Social Media Platform is deployed and fully functional:
+
+- **🌍 Live URL:** [https://yolo-social-media.vercel.app/](https://yolo-social-media.vercel.app/)
+- **🚀 Hosting:** Vercel (Full-stack deployment)
+- **🗄️ Database:** MongoDB Atlas (Cloud database)
+- **📸 Images:** ImgBB API (Cloud image storage)
+
+### Deployment Features
+
+- ✅ Automatic deployments from GitHub
+- ✅ Environment-based configurations
+- ✅ Global CDN for fast content delivery
+- ✅ SSL certificates for secure connections
+- ✅ Serverless functions for optimal performance
 
 ---
 
@@ -178,13 +225,23 @@ PORT=5000
 
 # Database
 MONGODB_URI=mongodb://localhost:27017/yolo-social
+# For production, use MongoDB Atlas connection string
 
 # Security
 JWT_SECRET=your_super_secret_jwt_key_here_change_this_in_production
 
+# ImgBB API (for image uploads)
+IMGBB_API_KEY=your_imgbb_api_key_here
+
 # Optional: For development
 NODE_ENV=development
 ```
+
+**Get ImgBB API Key:**
+1. Visit [ImgBB API](https://api.imgbb.com/)
+2. Create a free account
+3. Generate your API key
+4. Add it to your `.env` file
 
 ### 🏃‍♂️ Running the Application
 
@@ -238,6 +295,12 @@ npm run dev
 |  `POST`  | `/api/posts/:id/like`    | Like/unlike post |
 |  `POST`  | `/api/posts/:id/comment` | Add comment      |
 
+### 📸 Media
+
+| Method | Endpoint           | Description         |
+| :----: | :----------------- | :------------------ |
+| `POST` | `/api/upload/image` | Upload image to cloud |
+
 ---
 
 ## 🎨 Frontend Routes
@@ -285,6 +348,8 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 [![Gmail](https://skillicons.dev/icons?i=gmail)](mailto:mohamed.gamal.shoaib@gmail.com)
 
 **Project Link:** [https://github.com/mo0hamed-shoaib/yolo-social-media](https://github.com/mo0hamed-shoaib/yolo-social-media)
+
+**Live Demo:** [https://yolo-social-media.vercel.app/](https://yolo-social-media.vercel.app/)
 
 ---
 
