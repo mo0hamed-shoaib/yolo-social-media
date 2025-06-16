@@ -666,7 +666,7 @@ const HomePage = () => {
                 <img
                   src={
                     user?.profilePicture ||
-                    "https://via.placeholder.com/150/F299A9/FFFFFF?text=JD"
+                    "https://ui-avatars.com/api/?name=JD&background=F299A9&color=FFFFFF"
                   }
                   alt="User Avatar"
                   className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-300"
