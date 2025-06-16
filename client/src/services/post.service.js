@@ -28,12 +28,8 @@ const createPost = async (postData) => {
     }
 };
 
-const deletePost = async (postId, token) => {
-    const response = await axios.delete(`${API_URL}/${postId}`, {
-        headers: {
-            Authorization: `Bearer ${token}`
-        }
-    });
+const deletePost = async (postId) => {
+    const response = await axios.delete(`${API_URL}/${postId}`, getAuthHeaders());
     return response.data;
 };
 
