@@ -33,13 +33,16 @@ const LoginPage = () => {
   const onSubmit = async (formData) => {
     setIsLoading(true);
     try {
+      console.log('Attempting login with:', formData);
+      console.log('API URL:', `${import.meta.env.VITE_API_URL}/api/auth/login`);
+      
       const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/login`, formData);
+      console.log('Login response:', response.data);
 
       if (response.data.success) {
         // Use login function from AuthContext
-        login(response.data.token, response.data.user); // Assuming user data is returned
+        login(response.data.token, response.data.user);
         
-        // Show success toast
         toast.success('Successfully logged in!', {
           position: "top-right",
           autoClose: 3000,
@@ -51,17 +54,18 @@ const LoginPage = () => {
           theme: "dark",
         });
 
-        // Redirect to the page they tried to visit or home
         const from = location.state?.from?.pathname || '/';
         navigate(from, { replace: true });
       }
       setIsLoading(false);
     } catch (error) {
-      // Enhanced error handling
+      console.error('Login error:', error);
+      console.error('Error response:', error.response);
+      console.error('Error message:', error.message);
+      
       const errorMessage = error.response?.data?.message || 'Login failed';
       const errorDetails = error.response?.data?.details || [];
       
-      // Show main error in toast
       toast.error(errorMessage, {
         position: "top-right",
         autoClose: 5000,
@@ -73,7 +77,6 @@ const LoginPage = () => {
         theme: "dark",
       });
 
-      // If there are specific field errors, show them in a separate toast
       if (errorDetails.length > 0) {
         toast.error(
           <div>
