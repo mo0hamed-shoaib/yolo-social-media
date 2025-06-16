@@ -33,72 +33,28 @@ const LoginPage = () => {
   const onSubmit = async (formData) => {
     setIsLoading(true);
     try {
-      console.log('Attempting login with:', formData);
-      console.log('API URL:', `${import.meta.env.VITE_API_URL}/api/auth/login`);
-      
-      const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/login`, formData);
-      console.log('Login response:', response.data);
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_URL}/api/auth/login`, 
+        formData,
+        {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }
+      );
 
       if (response.data.success) {
-        // Use login function from AuthContext
         login(response.data.token, response.data.user);
-        
-        toast.success('Successfully logged in!', {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-        });
-
+        toast.success('Successfully logged in!');
         const from = location.state?.from?.pathname || '/';
         navigate(from, { replace: true });
       }
       setIsLoading(false);
     } catch (error) {
       console.error('Login error:', error);
-      console.error('Error response:', error.response);
-      console.error('Error message:', error.message);
-      
       const errorMessage = error.response?.data?.message || 'Login failed';
-      const errorDetails = error.response?.data?.details || [];
-      
-      toast.error(errorMessage, {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-      });
-
-      if (errorDetails.length > 0) {
-        toast.error(
-          <div>
-            <p className="font-bold mb-2">Please fix the following issues:</p>
-            <ul className="list-disc list-inside">
-              {errorDetails.map((detail, index) => (
-                <li key={index}>{detail}</li>
-              ))}
-            </ul>
-          </div>,
-          {
-            position: "top-right",
-            autoClose: 7000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "dark",
-          }
-        );
-      }
+      toast.error(errorMessage);
       setIsLoading(false);
     }
   };

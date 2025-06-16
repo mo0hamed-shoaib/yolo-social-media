@@ -18,11 +18,14 @@ const __dirname = path.dirname(__filename);
 
 // CORS configuration
 app.use(cors({
-    origin: ['http://localhost:5173', 'https://yolo-social-media.vercel.app'],
+    origin: 'https://yolo-social-media.vercel.app',
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization']
 }));
+
+// Handle OPTIONS requests
+app.options('*', cors());
 
 // Middleware
 app.use(express.json());
