@@ -33,15 +33,12 @@ const LoginPage = () => {
   const onSubmit = async (formData) => {
     setIsLoading(true);
     try {
+      console.log('Attempting login with:', formData);
       const response = await axios.post(
         `${import.meta.env.VITE_API_URL}/api/auth/login`, 
-        formData,
-        {
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        }
+        formData
       );
+      console.log('Login response:', response.data);
 
       if (response.data.success) {
         login(response.data.token, response.data.user);
