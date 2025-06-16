@@ -1,49 +1,46 @@
 import postService from '../services/post.service.js';
+const Post = require('../models/post.model');
+const User = require('../models/user.model');
+const { uploadToImgBB } = require('../utils/imgbb');
 
 // @desc    Create a new post
 // @route   POST /api/posts
 // @access  Private
 export const createPost = async (req, res) => {
     try {
-        const { title, content, images: bodyImages } = req.body;
-        const baseUrl = `${req.protocol}://${req.get('host')}`;
+        const { title, content } = req.body;
+        const userId = req.user.id;
 
-        let finalImages = [];
-
-        // Handle uploaded files first (from multer)
+        // Handle image uploads
+        let uploadedImages = [];
         if (req.files && req.files.length > 0) {
-            finalImages = req.files.map(file => `${baseUrl}/uploads/${file.filename}`);
-        } else if (bodyImages && Array.isArray(bodyImages) && bodyImages.length > 0) {
-            // If no files uploaded, check for images in request body (e.g., from Postman)
-            finalImages = bodyImages.map(imgUrl => {
-                if (imgUrl.startsWith('http://') || imgUrl.startsWith('https://')) {
-                    return imgUrl; // Already a full URL
-                } else if (imgUrl.startsWith('/uploads/')) {
-                    return `${baseUrl}${imgUrl}`; // Relative path to uploads, make absolute
-                } else {
-                    // Assume it's a filename in the uploads directory
-                    return `${baseUrl}/uploads/${imgUrl}`;
-                }
-            });
+            uploadedImages = await Promise.all(
+                req.files.map(async (file) => {
+                    const result = await uploadToImgBB(file.buffer);
+                    return result.data.url;
+                })
+            );
         }
 
-        const post = await postService.createPost({
+        const post = await Post.create({
             title,
             content,
-            images: finalImages,
-        }, req.user.id);
+            images: uploadedImages,
+            author: userId
+        });
 
-        console.log("Server - Created Post Data Sent to Client:", JSON.stringify(post, null, 2));
+        // Populate author details
+        await post.populate('author', 'username profilePicture');
 
         res.status(201).json({
             success: true,
             post
         });
     } catch (error) {
-        console.error("Error creating post:", error);
-        res.status(400).json({
+        console.error('Error creating post:', error);
+        res.status(500).json({
             success: false,
-            message: error.message || "Failed to create post"
+            message: error.message || 'Error creating post'
         });
     }
 };
