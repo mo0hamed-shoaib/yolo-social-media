@@ -1713,6 +1713,15 @@ const HomePage = () => {
                             <span className="text-sm font-medium">Views</span>
                           </button>
                         </div>
+                        {/* Debug logs for delete button visibility */}
+                        {console.log("Debug Delete Button:", {
+                          postId: post._id,
+                          postAuthorId: post.author?._id,
+                          currentUserId: user?._id,
+                          isAuthorMatch: post.author?._id === user?._id,
+                          hasAuthor: !!post.author,
+                          isLoggedIn: !!user,
+                        })}
                         {post.author?._id === user?._id && (
                           <button
                             onClick={() => {
