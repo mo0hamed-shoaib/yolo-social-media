@@ -5,32 +5,12 @@ import postService from '../services/post.service.js';
 // @access  Private
 export const createPost = async (req, res) => {
     try {
-        const { title, content, images: bodyImages } = req.body;
-        const baseUrl = `${req.protocol}://${req.get('host')}`;
-
-        let finalImages = [];
-
-        // Handle uploaded files first (from multer)
-        if (req.files && req.files.length > 0) {
-            finalImages = req.files.map(file => `${baseUrl}/uploads/${file.filename}`);
-        } else if (bodyImages && Array.isArray(bodyImages) && bodyImages.length > 0) {
-            // If no files uploaded, check for images in request body (e.g., from Postman)
-            finalImages = bodyImages.map(imgUrl => {
-                if (imgUrl.startsWith('http://') || imgUrl.startsWith('https://')) {
-                    return imgUrl; // Already a full URL
-                } else if (imgUrl.startsWith('/uploads/')) {
-                    return `${baseUrl}${imgUrl}`; // Relative path to uploads, make absolute
-                } else {
-                    // Assume it's a filename in the uploads directory
-                    return `${baseUrl}/uploads/${imgUrl}`;
-                }
-            });
-        }
+        const { title, content, images } = req.body;
 
         const post = await postService.createPost({
             title,
             content,
-            images: finalImages,
+            images: images || [], // Images are now direct URLs from ImgBB
         }, req.user.id);
 
         console.log("Server - Created Post Data Sent to Client:", JSON.stringify(post, null, 2));

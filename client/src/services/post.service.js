@@ -2,14 +2,11 @@ import axios from 'axios';
 
 const API_URL = `${import.meta.env.VITE_API_URL}/api/posts`;
 
-const getAuthHeaders = () => {
-    const token = localStorage.getItem('token');
-    return {
-        headers: {
-            Authorization: token ? `Bearer ${token}` : '',
-        },
-    };
-};
+const getAuthHeaders = () => ({
+    headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+    }
+});
 
 const getAllPosts = async () => {
     const response = await axios.get(API_URL, getAuthHeaders());
@@ -17,8 +14,18 @@ const getAllPosts = async () => {
 };
 
 const createPost = async (postData) => {
-    const response = await axios.post(API_URL, postData, getAuthHeaders());
-    return response.data;
+    try {
+        const response = await axios.post(API_URL, postData, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
+        });
+        return response.data;
+    } catch (error) {
+        console.error('Error creating post:', error);
+        throw error;
+    }
 };
 
 const deletePost = async (postId, token) => {

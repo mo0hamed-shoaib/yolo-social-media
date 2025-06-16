@@ -19,6 +19,7 @@ import eliasProfileImage from '../assets/elias-pfp.jpg'
 import zagProfileImage from '../assets/zag-pfp.jpg'
 import yahyaProfileImage from '../assets/square-pfp.jpg'
 import bilalProfileImage from '../assets/bilal-pfp.jpg'
+import { uploadImageToImgBB } from '../services/imgbb.service';
 
 const styles = `
   @keyframes fadeIn {
@@ -273,34 +274,27 @@ const HomePage = () => {
 
     setIsPosting(true);
     try {
-      const formData = new FormData();
-      // Add a title - using first 50 characters of content or a default
-      const title = newPostContent.trim().slice(0, 50) || 'New Post';
-      formData.append('title', title);
-      formData.append('content', newPostContent);
-      
-      // Handle image uploads
-      if (isModal) {
-        console.log('Creating post from modal');
-        if (modalSelectedImage) {
-          console.log('Appending modal image to FormData:', modalSelectedImage);
-          formData.append('images', modalSelectedImage);
-        }
-      } else {
-        console.log('Creating post from main section');
-        if (selectedImage) {
-          console.log('Appending main section image to FormData:', selectedImage);
-          formData.append('images', selectedImage);
+      let imageUrl = null;
+      const imageToUpload = isModal ? modalSelectedImage : selectedImage;
+
+      if (imageToUpload) {
+        try {
+          imageUrl = await uploadImageToImgBB(imageToUpload);
+        } catch (error) {
+          console.error('Error uploading image:', error);
+          toast.error('Failed to upload image. Please try again.');
+          setIsPosting(false);
+          return;
         }
       }
 
-      // Log the entire FormData for debugging
-      console.log('FormData contents:');
-      for (let pair of formData.entries()) {
-        console.log(pair[0] + ': ' + (pair[1] instanceof File ? pair[1].name : pair[1]));
-      }
+      const postData = {
+        title: newPostContent.trim().slice(0, 50) || 'New Post',
+        content: newPostContent,
+        images: imageUrl ? [imageUrl] : []
+      };
 
-      const response = await postService.createPost(formData);
+      const response = await postService.createPost(postData);
       if (response.success) {
         setPosts([response.post, ...posts]);
         setNewPostContent('');
