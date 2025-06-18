@@ -109,6 +109,16 @@ const styles = `
     opacity: 1;
     margin-top: 1rem;
   }
+    
+  /* Hide scrollbars for sidebars */
+  .sidebar-no-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .sidebar-no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const styleSheet = document.createElement("style");
@@ -456,7 +466,7 @@ const HomePage = () => {
     <PageTransition>
       <div className="min-h-screen bg-[#191f2b]">
         {/* Navbar */}
-        <div className="navbar bg-gradient-to-r from-[#1d2838] to-[#1e2939] border-b border-gray-700/50 shadow-lg backdrop-blur-sm">
+        <div className="navbar bg-gradient-to-r from-[#1d2838] to-[#1e2939] border-b border-gray-700/50 shadow-lg backdrop-blur-sm sticky top-0 z-50">
           <div className="navbar-start">
             <div className="dropdown">
               <button
@@ -656,9 +666,9 @@ const HomePage = () => {
         </div>
 
         {/* Main Content */}
-        <div className="flex flex-1">
-          {/* Left Sidebar */}
-          <aside className="hidden lg:flex w-100 bg-gray-800 p-6 border-r border-gray-700 flex flex-col">
+        <div className="flex flex-1 relative">
+          {/* Left Sidebar - Fixed */}
+          <aside className="hidden lg:block w-100 bg-gray-800 p-6 border-r border-gray-700 flex flex-col fixed left-0 top-0 h-screen overflow-y-auto sidebar-no-scrollbar pt-20">
             {/* User Profile Section */}
             <div className="relative overflow-hidden bg-gray-800/50 backdrop-blur-sm rounded-xl p-6 mb-8 border border-gray-700/50">
               <div className="relative w-24 h-24 rounded-full overflow-hidden mx-auto mb-4 group">
@@ -1272,508 +1282,513 @@ const HomePage = () => {
             </div>
           </aside>
 
-          {/* Main Content - Feeds */}
-          <main className="flex-1 w-full p-6 bg-[#191f2b] overflow-y-auto lg:max-w-4xl lg:mx-auto">
-            {/* Top Navigation for Feeds */}
-            <div className="flex justify-between items-center mb-6">
-              <h2 className="text-3xl font-bold">Feeds</h2>
-              <div className="hidden md:flex space-x-2">
-                <button
-                  type="button"
-                  className="bg-[#D984BB] hover:bg-[#D782D9] text-white font-semibold py-1.5 px-4 rounded-full transition duration-200 flex items-center gap-2 cursor-pointer text-sm"
-                  aria-label="Show recent posts"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                    className="size-4"
+          {/* Main Content - Scrollable */}
+          <main className="flex-1 w-full p-6 bg-[#191f2b] overflow-y-auto lg:ml-[25rem] 2xl:mr-[35rem] pt-12">
+            <div className="max-w-4xl mx-auto">
+              {/* Top Navigation for Feeds */}
+              <div className="flex justify-between items-center mb-6">
+                <h2 className="text-3xl font-bold">Feeds</h2>
+                <div className="hidden md:flex space-x-2">
+                  <button
+                    type="button"
+                    className="bg-[#D984BB] hover:bg-[#D782D9] text-white font-semibold py-1.5 px-4 rounded-full transition duration-200 flex items-center gap-2 cursor-pointer text-sm"
+                    aria-label="Show recent posts"
                   >
-                    <path
-                      fillRule="evenodd"
-                      d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12.75 6a.75.75 0 0 0-1.5 0v6c0 .414.336.75.75.75h4.5a.75.75 0 0 0 0-1.5h-3.75V6Z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                  Recent
-                </button>
-                <button
-                  type="button"
-                  className="bg-gray-700 hover:bg-gray-600 text-gray-300 font-semibold py-1.5 px-4 rounded-full transition duration-200 flex items-center gap-2 cursor-pointer text-sm"
-                  aria-label="Show trending posts"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                    className="size-4"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M15.22 6.268a.75.75 0 0 1 .968-.432l5.942 2.28a.75.75 0 0 1 .431.97l-2.28 5.941a.75.75 0 1 1-1.4-.537l1.63-4.251-1.086.483a11.2 11.2 0 0 0-5.45 5.174.75.75 0 0 1-1.199.19L9 12.31l-6.22 6.22a.75.75 0 1 1-1.06-1.06l6.75-6.75a.75.75 0 0 1 1.06 0l3.606 3.605a12.694 12.694 0 0 1 5.68-4.973l1.086-.484-4.251-1.631a.75.75 0 0 1-.432-.97Z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                  Trending
-                </button>
-              </div>
-              <div className="md:hidden">
-                <button
-                  type="button"
-                  className="bg-gray-800 p-2 rounded-lg text-white hover:bg-gray-700 transition duration-200 cursor-pointer"
-                  aria-label="Open feed menu"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                    className="size-6"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M3 6.75A.75.75 0 0 1 3.75 6h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 6.75ZM3 12a.75.75 0 0 1 .75-.75h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 12Zm0 5.25a.75.75 0 0 1 .75-.75h16.5a.75.75 0 0 1 0 1.5H3.75a.75.75 0 0 1-.75-.75Z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                </button>
-              </div>
-            </div>
-
-            {/* Share Something Section */}
-            <div className="bg-[#1e2939] rounded-lg shadow-lg p-4 sm:p-6 mb-8">
-              <div className="flex items-start space-x-3 sm:space-x-4">
-                <img
-                  src={
-                    user?.profilePicture ||
-                    "https://ui-avatars.com/api/?name=" + user?.username
-                  }
-                  alt="Your profile"
-                  className="w-8 h-8 sm:w-12 sm:h-12 rounded-full"
-                />
-                <div className="flex-1 min-w-0">
-                  <textarea
-                    className="w-full bg-gray-700 text-white rounded-lg p-3 sm:p-4 resize-none focus:outline-none focus:ring-2 focus:ring-[#D984BB] text-sm sm:text-base"
-                    placeholder="What's on your mind?"
-                    rows="3"
-                    value={newPostContent}
-                    onChange={(e) => setNewPostContent(e.target.value)}
-                  ></textarea>
-                  {selectedImage && (
-                    <div className="mt-3 sm:mt-4 relative">
-                      <img
-                        src={URL.createObjectURL(selectedImage)}
-                        alt="Selected"
-                        className="max-h-48 sm:max-h-96 w-full object-contain rounded-lg"
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                      className="size-4"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12.75 6a.75.75 0 0 0-1.5 0v6c0 .414.336.75.75.75h4.5a.75.75 0 0 0 0-1.5h-3.75V6Z"
+                        clipRule="evenodd"
                       />
-                      <button
-                        onClick={() => {
-                          setSelectedImage(null);
-                          if (mainFileInputRef.current) {
-                            mainFileInputRef.current.value = "";
+                    </svg>
+                    Recent
+                  </button>
+                  <button
+                    type="button"
+                    className="bg-gray-700 hover:bg-gray-600 text-gray-300 font-semibold py-1.5 px-4 rounded-full transition duration-200 flex items-center gap-2 cursor-pointer text-sm"
+                    aria-label="Show trending posts"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                      className="size-4"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M15.22 6.268a.75.75 0 0 1 .968-.432l5.942 2.28a.75.75 0 0 1 .431.97l-2.28 5.941a.75.75 0 1 1-1.4-.537l1.63-4.251-1.086.483a11.2 11.2 0 0 0-5.45 5.174.75.75 0 0 1-1.199.19L9 12.31l-6.22 6.22a.75.75 0 1 1-1.06-1.06l6.75-6.75a.75.75 0 0 1 1.06 0l3.606 3.605a12.694 12.694 0 0 1 5.68-4.973l1.086-.484-4.251-1.631a.75.75 0 0 1-.432-.97Z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                    Trending
+                  </button>
+                </div>
+                <div className="md:hidden">
+                  <button
+                    type="button"
+                    className="bg-gray-800 p-2 rounded-lg text-white hover:bg-gray-700 transition duration-200 cursor-pointer"
+                    aria-label="Open feed menu"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                      className="size-6"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M3 6.75A.75.75 0 0 1 3.75 6h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 6.75ZM3 12a.75.75 0 0 1 .75-.75h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 12Zm0 5.25a.75.75 0 0 1 .75-.75h16.5a.75.75 0 0 1 0 1.5H3.75a.75.75 0 0 1-.75-.75Z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+
+              {/* Share Something Section */}
+              <div className="bg-[#1e2939] rounded-lg shadow-lg p-4 sm:p-6 mb-8">
+                <div className="flex items-start space-x-3 sm:space-x-4">
+                  <img
+                    src={
+                      user?.profilePicture ||
+                      "https://ui-avatars.com/api/?name=" + user?.username
+                    }
+                    alt="Your profile"
+                    className="w-8 h-8 sm:w-12 sm:h-12 rounded-full"
+                  />
+                  <div className="flex-1 min-w-0">
+                    <textarea
+                      className="w-full bg-gray-700 text-white rounded-lg p-3 sm:p-4 resize-none focus:outline-none focus:ring-2 focus:ring-[#D984BB] text-sm sm:text-base"
+                      placeholder="What's on your mind?"
+                      rows="3"
+                      value={newPostContent}
+                      onChange={(e) => setNewPostContent(e.target.value)}
+                    ></textarea>
+                    {selectedImage && (
+                      <div className="mt-3 sm:mt-4 relative">
+                        <img
+                          src={URL.createObjectURL(selectedImage)}
+                          alt="Selected"
+                          className="max-h-48 sm:max-h-96 w-full object-contain rounded-lg"
+                        />
+                        <button
+                          onClick={() => {
+                            setSelectedImage(null);
+                            if (mainFileInputRef.current) {
+                              mainFileInputRef.current.value = "";
+                            }
+                          }}
+                          className="absolute top-2 right-2 bg-gray-800/80 text-white p-1 rounded-full hover:bg-gray-700/80 transition-colors duration-200"
+                          aria-label="Remove image"
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="h-4 w-4 sm:h-5 sm:w-5"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="2"
+                              d="M6 18L18 6M6 6l12 12"
+                            />
+                          </svg>
+                        </button>
+                      </div>
+                    )}
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between mt-3 sm:mt-4 gap-3 sm:gap-4">
+                      <div className="flex flex-wrap items-center gap-2 sm:gap-4">
+                        <button
+                          type="button"
+                          onClick={() => handleImageClick(false)}
+                          className="text-emerald-400 hover:text-emerald-300 transition-colors duration-200 flex items-center gap-1 sm:gap-2 px-2 py-1 rounded-full hover:bg-emerald-400/10 cursor-pointer group"
+                          aria-label="Add image to post"
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="h-6 w-6 transform transition-transform duration-200 group-hover:scale-110"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="2"
+                              d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                            />
+                          </svg>
+                          <span className="text-xs sm:text-sm font-medium">
+                            Image
+                          </span>
+                        </button>
+                        <input
+                          type="file"
+                          key={mainFileInputKey} // Add key here
+                          ref={mainFileInputRef}
+                          onChange={handleImageChange}
+                          accept="image/*"
+                          className="hidden"
+                        />
+                        <button
+                          type="button"
+                          onClick={() => handleLocationClick()}
+                          className={`transition-colors duration-200 flex items-center gap-1 sm:gap-2 px-2 py-1 rounded-full cursor-pointer group ${
+                            shareLocation
+                              ? "text-yellow-400 hover:text-yellow-300 hover:bg-yellow-400/10"
+                              : "text-red-400 hover:text-red-300 hover:bg-red-400/10"
+                          }`}
+                          aria-label={
+                            shareLocation
+                              ? "Location shared"
+                              : "Location not shared"
                           }
-                        }}
-                        className="absolute top-2 right-2 bg-gray-800/80 text-white p-1 rounded-full hover:bg-gray-700/80 transition-colors duration-200"
-                        aria-label="Remove image"
-                      >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="h-4 w-4 sm:h-5 sm:w-5"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
                         >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            d="M6 18L18 6M6 6l12 12"
-                          />
-                        </svg>
-                      </button>
-                    </div>
-                  )}
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between mt-3 sm:mt-4 gap-3 sm:gap-4">
-                    <div className="flex flex-wrap items-center gap-2 sm:gap-4">
-                      <button
-                        type="button"
-                        onClick={() => handleImageClick(false)}
-                        className="text-emerald-400 hover:text-emerald-300 transition-colors duration-200 flex items-center gap-1 sm:gap-2 px-2 py-1 rounded-full hover:bg-emerald-400/10 cursor-pointer group"
-                        aria-label="Add image to post"
-                      >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="h-6 w-6 transform transition-transform duration-200 group-hover:scale-110"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-                          />
-                        </svg>
-                        <span className="text-xs sm:text-sm font-medium">
-                          Image
-                        </span>
-                      </button>
-                      <input
-                        type="file"
-                        key={mainFileInputKey} // Add key here
-                        ref={mainFileInputRef}
-                        onChange={handleImageChange}
-                        accept="image/*"
-                        className="hidden"
-                      />
-                      <button
-                        type="button"
-                        onClick={() => handleLocationClick()}
-                        className={`transition-colors duration-200 flex items-center gap-1 sm:gap-2 px-2 py-1 rounded-full cursor-pointer group ${
-                          shareLocation
-                            ? "text-yellow-400 hover:text-yellow-300 hover:bg-yellow-400/10"
-                            : "text-red-400 hover:text-red-300 hover:bg-red-400/10"
-                        }`}
-                        aria-label={
-                          shareLocation
-                            ? "Location shared"
-                            : "Location not shared"
-                        }
-                      >
-                        {shareLocation ? (
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="h-6 w-6 transform transition-transform duration-200 group-hover:scale-110"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth="2"
-                              d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-                            />
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth="2"
-                              d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-                            />
-                          </svg>
-                        ) : (
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            strokeWidth={1.5}
-                            stroke="currentColor"
-                            className="h-6 w-6 transform transition-transform duration-200 group-hover:scale-110"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              d="M18.364 18.364A9 9 0 0 0 5.636 5.636m12.728 12.728A9 9 0 0 1 5.636 5.636m12.728 12.728L5.636 5.636"
-                            />
-                          </svg>
-                        )}
-                        <span className="text-xs sm:text-sm font-medium">
-                          {shareLocation ? "Share Location" : "No Location"}
-                        </span>
-                      </button>
-                      <button
-                        type="button"
-                        onClick={handlePublicClick}
-                        className={`transition-colors duration-200 flex items-center gap-1 sm:gap-2 px-2 py-1 rounded-full cursor-pointer group ${
-                          privacy === "public"
-                            ? "text-fuchsia-400 hover:text-fuchsia-300 hover:bg-fuchsia-400/10"
-                            : privacy === "friends"
-                            ? "text-blue-400 hover:text-blue-300 hover:bg-blue-400/10"
-                            : "text-red-400 hover:text-red-300 hover:bg-red-400/10"
-                        }`}
-                        aria-label={`Change privacy to ${
-                          privacy === "public"
-                            ? "friends"
-                            : privacy === "friends"
-                            ? "private"
-                            : "public"
-                        }`}
-                      >
-                        {privacy === "public" ? (
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="h-6 w-6 transform transition-transform duration-200 group-hover:scale-110"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth="2"
-                              d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"
-                            />
-                          </svg>
-                        ) : privacy === "friends" ? (
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="h-6 w-6 transform transition-transform duration-200 group-hover:scale-110"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth="2"
-                              d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"
-                            />
-                          </svg>
-                        ) : (
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="h-6 w-6 transform transition-transform duration-200 group-hover:scale-110"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth="2"
-                              d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z"
-                            />
-                          </svg>
-                        )}
-                        <span className="text-xs sm:text-sm font-medium">
-                          {privacy === "public"
-                            ? "Public"
-                            : privacy === "friends"
-                            ? "Friends"
-                            : "Only You"}
-                        </span>
-                      </button>
-                    </div>
-                    <div className="flex justify-end w-full sm:w-auto">
-                      <button
-                        type="button"
-                        onClick={() => handleCreatePost(false)}
-                        disabled={isPosting}
-                        className="bg-[#D984BB] hover:bg-[#D782D9] text-white font-bold py-1.5 sm:py-2 px-3 sm:px-4 rounded-full transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-1 sm:gap-2 cursor-pointer text-xs sm:text-sm whitespace-nowrap group"
-                        aria-label="Create post"
-                      >
-                        {isPosting ? (
-                          <>
-                            <span className="loading loading-spinner loading-xs sm:loading-sm"></span>
-                            <span>Posting...</span>
-                          </>
-                        ) : (
-                          <>
+                          {shareLocation ? (
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
+                              className="h-6 w-6 transform transition-transform duration-200 group-hover:scale-110"
+                              fill="none"
                               viewBox="0 0 24 24"
-                              fill="currentColor"
+                              stroke="currentColor"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth="2"
+                                d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                              />
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth="2"
+                                d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                              />
+                            </svg>
+                          ) : (
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              strokeWidth={1.5}
+                              stroke="currentColor"
                               className="h-6 w-6 transform transition-transform duration-200 group-hover:scale-110"
                             >
-                              <path d="M3.478 2.404a.75.75 0 0 0-.926.941l2.432 7.905H13.5a.75.75 0 0 1 0 1.5H4.984l-2.432 7.905a.75.75 0 0 0 .926.94 60.519 60.519 0 0 0 18.445-8.986.75.75 0 0 0 0-1.218A60.517 60.517 0 0 0 3.478 2.404Z" />
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M18.364 18.364A9 9 0 0 0 5.636 5.636m12.728 12.728A9 9 0 0 1 5.636 5.636m12.728 12.728L5.636 5.636"
+                              />
                             </svg>
-                            <span>Post</span>
-                          </>
-                        )}
-                      </button>
+                          )}
+                          <span className="text-xs sm:text-sm font-medium">
+                            {shareLocation ? "Share Location" : "No Location"}
+                          </span>
+                        </button>
+                        <button
+                          type="button"
+                          onClick={handlePublicClick}
+                          className={`transition-colors duration-200 flex items-center gap-1 sm:gap-2 px-2 py-1 rounded-full cursor-pointer group ${
+                            privacy === "public"
+                              ? "text-fuchsia-400 hover:text-fuchsia-300 hover:bg-fuchsia-400/10"
+                              : privacy === "friends"
+                              ? "text-blue-400 hover:text-blue-300 hover:bg-blue-400/10"
+                              : "text-red-400 hover:text-red-300 hover:bg-red-400/10"
+                          }`}
+                          aria-label={`Change privacy to ${
+                            privacy === "public"
+                              ? "friends"
+                              : privacy === "friends"
+                              ? "private"
+                              : "public"
+                          }`}
+                        >
+                          {privacy === "public" ? (
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              className="h-6 w-6 transform transition-transform duration-200 group-hover:scale-110"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke="currentColor"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth="2"
+                                d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"
+                              />
+                            </svg>
+                          ) : privacy === "friends" ? (
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              className="h-6 w-6 transform transition-transform duration-200 group-hover:scale-110"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke="currentColor"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth="2"
+                                d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"
+                              />
+                            </svg>
+                          ) : (
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              className="h-6 w-6 transform transition-transform duration-200 group-hover:scale-110"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke="currentColor"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth="2"
+                                d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z"
+                              />
+                            </svg>
+                          )}
+                          <span className="text-xs sm:text-sm font-medium">
+                            {privacy === "public"
+                              ? "Public"
+                              : privacy === "friends"
+                              ? "Friends"
+                              : "Only You"}
+                          </span>
+                        </button>
+                      </div>
+                      <div className="flex justify-end w-full sm:w-auto">
+                        <button
+                          type="button"
+                          onClick={() => handleCreatePost(false)}
+                          disabled={isPosting}
+                          className="bg-[#D984BB] hover:bg-[#D782D9] text-white font-bold py-1.5 sm:py-2 px-3 sm:px-4 rounded-full transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-1 sm:gap-2 cursor-pointer text-xs sm:text-sm whitespace-nowrap group"
+                          aria-label="Create post"
+                        >
+                          {isPosting ? (
+                            <>
+                              <span className="loading loading-spinner loading-xs sm:loading-sm"></span>
+                              <span>Posting...</span>
+                            </>
+                          ) : (
+                            <>
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 24 24"
+                                fill="currentColor"
+                                className="h-6 w-6 transform transition-transform duration-200 group-hover:scale-110"
+                              >
+                                <path d="M3.478 2.404a.75.75 0 0 0-.926.941l2.432 7.905H13.5a.75.75 0 0 1 0 1.5H4.984l-2.432 7.905a.75.75 0 0 0 .926.94 60.519 60.519 0 0 0 18.445-8.986.75.75 0 0 0 0-1.218A60.517 60.517 0 0 0 3.478 2.404Z" />
+                              </svg>
+                              <span>Post</span>
+                            </>
+                          )}
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            {/* Dynamically rendered Post Cards */}
-            <div className="space-y-8">
-              {isFetchingPosts ? (
-                <div className="flex justify-center items-center h-48">
-                  <span className="loading loading-spinner loading-lg text-[#D984BB]"></span>
-                  <p className="text-gray-400 ml-3">Fetching posts...</p>
-                </div>
-              ) : posts.length > 0 ? (
-                posts.map((post) => (
-                  <div
-                    key={post._id}
-                    className="bg-[#1e2939] rounded-2xl shadow-xl overflow-hidden mb-6 transform transition-all duration-300 hover:shadow-2xl"
-                  >
-                    <div className="p-6">
-                      <div className="flex items-center justify-between mb-6">
-                        <div className="flex items-center space-x-4">
-                          <div className="relative">
+              {/* Dynamically rendered Post Cards */}
+              <div className="space-y-8">
+                {isFetchingPosts ? (
+                  <div className="flex justify-center items-center h-48">
+                    <span className="loading loading-spinner loading-lg text-[#D984BB]"></span>
+                    <p className="text-gray-400 ml-3">Fetching posts...</p>
+                  </div>
+                ) : posts.length > 0 ? (
+                  posts.map((post) => (
+                    <div
+                      key={post._id}
+                      className="bg-[#1e2939] rounded-2xl shadow-xl overflow-hidden mb-6 transform transition-all duration-300 hover:shadow-2xl"
+                    >
+                      <div className="p-6">
+                        <div className="flex items-center justify-between mb-6">
+                          <div className="flex items-center space-x-4">
+                            <div className="relative">
+                              <img
+                                src={
+                                  post.author?.profilePicture ||
+                                  "https://i.ibb.co/8nhPf8Q0/default-pfp.png"
+                                }
+                                alt={post.author?.username || "Unknown"}
+                                className="w-12 h-12 rounded-full object-cover ring-2 ring-[#D984BB] ring-offset-2 ring-offset-[#1e2939]"
+                              />
+                            </div>
+                            <div>
+                              <h3 className="font-bold text-white text-lg">
+                                {post.author?.username || "Unknown"}
+                              </h3>
+                              <span className="text-gray-400 text-sm">
+                                {new Date(post.createdAt).toLocaleDateString()}
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                        <p className="text-gray-200 mb-6 text-lg leading-relaxed">
+                          {post.content}
+                        </p>
+                        {post.images && post.images.length > 0 && (
+                          <div className="my-6 overflow-hidden rounded-2xl shadow-lg">
                             <img
-                              src={
-                                post.author?.profilePicture ||
-                                "https://i.ibb.co/8nhPf8Q0/default-pfp.png"
-                              }
-                              alt={post.author?.username || "Unknown"}
-                              className="w-12 h-12 rounded-full object-cover ring-2 ring-[#D984BB] ring-offset-2 ring-offset-[#1e2939]"
+                              src={post.images[0]}
+                              alt="Post"
+                              className="w-full h-auto rounded-2xl object-cover max-h-[500px] transform transition-transform duration-300"
                             />
                           </div>
-                          <div>
-                            <h3 className="font-bold text-white text-lg">
-                              {post.author?.username || "Unknown"}
-                            </h3>
-                            <span className="text-gray-400 text-sm">
-                              {new Date(post.createdAt).toLocaleDateString()}
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                      <p className="text-gray-200 mb-6 text-lg leading-relaxed">
-                        {post.content}
-                      </p>
-                      {post.images && post.images.length > 0 && (
-                        <div className="my-6 overflow-hidden rounded-2xl shadow-lg">
-                          <img
-                            src={post.images[0]}
-                            alt="Post"
-                            className="w-full h-auto rounded-2xl object-cover max-h-[500px] transform transition-transform duration-300"
-                          />
-                        </div>
-                      )}
-                      <div className="flex flex-wrap items-center justify-between text-gray-400 text-sm pt-4">
-                        <div className="flex flex-wrap items-center gap-2 sm:gap-4">
-                          <button
-                            onClick={() => handleLikePost(post._id)}
-                            className="flex items-center gap-2 text-pink-400 hover:text-pink-300 hover:bg-pink-400/10 transition-all duration-200 px-4 py-2 rounded-full cursor-pointer group"
-                          >
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              className="h-6 w-6 transform transition-transform duration-200 group-hover:scale-110"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              stroke="currentColor"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth="2"
-                                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-                              />
-                            </svg>
-                            <span className="font-semibold">
-                              {getInteractionNumbers(post._id).likes}
-                            </span>
-                            <span className="text-sm font-medium">Likes</span>
-                          </button>
-                          <button
-                            onClick={() => handleSharePost(post._id)}
-                            className="flex items-center gap-2 text-cyan-400 hover:text-cyan-300 hover:bg-cyan-400/10 transition-all duration-200 px-4 py-2 rounded-full cursor-pointer group"
-                          >
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              className="h-6 w-6 transform transition-transform duration-200 group-hover:scale-110"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              stroke="currentColor"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth="2"
-                                d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"
-                              />
-                            </svg>
-                            <span className="font-semibold">
-                              {getInteractionNumbers(post._id).shares}
-                            </span>
-                            <span className="text-sm font-medium">Shares</span>
-                          </button>
-                          <button
-                            onClick={() => handleViewCountClick(post._id)}
-                            className="flex items-center gap-2 text-purple-400 hover:text-purple-300 hover:bg-purple-400/10 transition-all duration-200 px-4 py-2 rounded-full cursor-pointer group"
-                          >
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              className="h-6 w-6 transform transition-transform duration-200 group-hover:scale-110"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              stroke="currentColor"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth="2"
-                                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                              />
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth="2"
-                                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-                              />
-                            </svg>
-                            <span className="font-semibold">
-                              {getInteractionNumbers(post._id).views}
-                            </span>
-                            <span className="text-sm font-medium">Views</span>
-                          </button>
-                        </div>
-                        {/* Debug logs for delete button visibility */}
-                        {console.log("Debug Delete Button:", {
-                          postId: post._id,
-                          postAuthorId: post.author?._id,
-                          currentUserId: user?.id,
-                          isAuthorMatch: post.author?._id === user?.id,
-                          hasAuthor: !!post.author,
-                          isLoggedIn: !!user,
-                          fullUserObject: user,
-                        })}
-                        {post.author?._id === user?.id && (
-                          <button
-                            onClick={() => {
-                              setPostToDelete(post._id);
-                              setShowDeleteModal(true);
-                            }}
-                            className="text-red-400 hover:text-red-300 hover:bg-red-400/10 transition-all duration-200 px-4 py-2 rounded-full cursor-pointer flex items-center gap-2 group mt-2 sm:mt-0"
-                          >
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              className="h-6 w-6 transform transition-transform duration-200 group-hover:scale-110"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              stroke="currentColor"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth="2"
-                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                              />
-                            </svg>
-                            <span className="text-sm font-medium">Delete</span>
-                          </button>
                         )}
+                        <div className="flex flex-wrap items-center justify-between text-gray-400 text-sm pt-4">
+                          <div className="flex flex-wrap items-center gap-2 sm:gap-4">
+                            <button
+                              onClick={() => handleLikePost(post._id)}
+                              className="flex items-center gap-2 text-pink-400 hover:text-pink-300 hover:bg-pink-400/10 transition-all duration-200 px-4 py-2 rounded-full cursor-pointer group"
+                            >
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="h-6 w-6 transform transition-transform duration-200 group-hover:scale-110"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth="2"
+                                  d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                                />
+                              </svg>
+                              <span className="font-semibold">
+                                {getInteractionNumbers(post._id).likes}
+                              </span>
+                              <span className="text-sm font-medium">Likes</span>
+                            </button>
+                            <button
+                              onClick={() => handleSharePost(post._id)}
+                              className="flex items-center gap-2 text-cyan-400 hover:text-cyan-300 hover:bg-cyan-400/10 transition-all duration-200 px-4 py-2 rounded-full cursor-pointer group"
+                            >
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="h-6 w-6 transform transition-transform duration-200 group-hover:scale-110"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth="2"
+                                  d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"
+                                />
+                              </svg>
+                              <span className="font-semibold">
+                                {getInteractionNumbers(post._id).shares}
+                              </span>
+                              <span className="text-sm font-medium">
+                                Shares
+                              </span>
+                            </button>
+                            <button
+                              onClick={() => handleViewCountClick(post._id)}
+                              className="flex items-center gap-2 text-purple-400 hover:text-purple-300 hover:bg-purple-400/10 transition-all duration-200 px-4 py-2 rounded-full cursor-pointer group"
+                            >
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="h-6 w-6 transform transition-transform duration-200 group-hover:scale-110"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth="2"
+                                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                                />
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth="2"
+                                  d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                                />
+                              </svg>
+                              <span className="font-semibold">
+                                {getInteractionNumbers(post._id).views}
+                              </span>
+                              <span className="text-sm font-medium">Views</span>
+                            </button>
+                          </div>
+                          {/* Debug logs for delete button visibility */}
+                          {console.log("Debug Delete Button:", {
+                            postId: post._id,
+                            postAuthorId: post.author?._id,
+                            currentUserId: user?._id,
+                            isAuthorMatch: post.author?._id === user?._id,
+                            hasAuthor: !!post.author,
+                            isLoggedIn: !!user,
+                          })}
+                          {post.author?._id === user?._id && (
+                            <button
+                              onClick={() => {
+                                setPostToDelete(post._id);
+                                setShowDeleteModal(true);
+                              }}
+                              className="text-red-400 hover:text-red-300 hover:bg-red-400/10 transition-all duration-200 px-4 py-2 rounded-full cursor-pointer flex items-center gap-2 group mt-2 sm:mt-0"
+                            >
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="h-6 w-6 transform transition-transform duration-200 group-hover:scale-110"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth="2"
+                                  d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                                />
+                              </svg>
+                              <span className="text-sm font-medium">
+                                Delete
+                              </span>
+                            </button>
+                          )}
+                        </div>
+                      </div>
+
+                      {/* Add CommentSection component */}
+                      <div className="px-6 pb-6 border-t border-gray-700">
+                        <CommentSection
+                          post={post}
+                          onCommentAdded={(comment) =>
+                            handleCommentAdded(comment)
+                          }
+                        />
                       </div>
                     </div>
-
-                    {/* Add CommentSection component */}
-                    <div className="px-6 pb-6 border-t border-gray-700">
-                      <CommentSection
-                        post={post}
-                        onCommentAdded={(comment) =>
-                          handleCommentAdded(comment)
-                        }
-                      />
-                    </div>
+                  ))
+                ) : (
+                  <div className="text-center py-12">
+                    <p className="text-gray-400">
+                      No posts yet. Be the first to share something!
+                    </p>
                   </div>
-                ))
-              ) : (
-                <div className="text-center py-12">
-                  <p className="text-gray-400">
-                    No posts yet. Be the first to share something!
-                  </p>
-                </div>
-              )}
+                )}
+              </div>
             </div>
           </main>
 
-          {/* Right Sidebar */}
-          <aside className="hidden 2xl:block w-[35rem] bg-gray-800 p-6 border-l border-gray-700">
+          {/* Right Sidebar - Fixed */}
+          <aside className="hidden 2xl:block w-[35rem] bg-gray-800 p-6 border-l border-gray-700 fixed right-0 top-0 h-screen overflow-y-auto sidebar-no-scrollbar pt-20">
             {/* Stories Section */}
             <div className="mb-8">
               <h3 className="text-lg font-semibold mb-4">Stories</h3>
